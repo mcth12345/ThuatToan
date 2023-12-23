@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    /*
+    b1 tach thanh cac ky tu
+    b2 sap xep ky tu tang dan
+    b3 ghep cac ky tu thanh chuoi
+    */
+    let s="anagramm";
+    let t="nagarama";
+    var isAnagram =function(s,t){
+        s=[...s].sort().join();
+        t=[...t].sort().join();
+        //console.log(s);
+        return s==t;
+    }
+
+    console.log(isAnagram(s,t));
+
+  
+
+    </script>
+</body>
+</html>

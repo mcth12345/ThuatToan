@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        const root ={
+            data: 2,
+            left:{
+                data:1,
+            }
+        
+          
+        }
+
+
+        const root1 ={
+            data: 4,
+            left:{
+                data:2,
+                left:{
+                    data:1
+                },
+                right:{
+                    data:3
+                }
+            },
+            right:{
+                data:7,
+                left:{
+                    data:6
+                },
+                right:{
+                    data:9
+                }
+            }
+        }
+
+        const root2={}
+       
+
+        var invertTree = function(root){
+            if(!root) {
+                return null;
+            }
+
+            if(root.left||root.right){
+                const templeft = root.left;
+                root.left = invertTree(root.right);
+                root.right =invertTree(templeft);
+            }
+
+            /*if(root.right){
+                const tempright = root.right;
+                root.right = invertTree(root.left);
+                root.left =invertTree(tempright);
+            }*/
+
+            return root;
+
+        }
+
+        console.log(invertTree(root));
+
+        
+
+    </script>
+</body>
+</html>
