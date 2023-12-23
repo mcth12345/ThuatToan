@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>22. Diameter of Binary Tree</title>
+</head>
+<body>
+<script type="text/javascript">
+	
+let BTree = {
+	value: 1,
+	left: {
+		value: 2,
+		left: {
+			value: 4
+		},
+		right: {
+			value: 5
+		}
+	},
+	right: {
+		value: 3
+	}
+};
+
+let BTree1 = {
+	value: 1,
+	left: {
+		value: 2
+	}
+};
+
+let getHeight = function(BTree) {
+	if(!BTree.left && !BTree.right) {
+		return 0;
+	}
+
+	let leftHeight = 0;
+	if(BTree.left) {
+		leftHeight = getHeight(BTree.left);
+	}
+
+	let rightHeight = 0;
+	if(BTree.right) {
+		rightHeight = getHeight(BTree.right);
+	}
+
+	return Math.max(leftHeight, rightHeight) + 1;
+}
+
+let diameterOfBinaryTree = function(BTree) {
+	let result = 0;
+	if(BTree.left) {
+		result += getHeight(BTree.left) + 1;
+	}
+
+	if(BTree.right) {
+		result += getHeight(BTree.right) + 1;
+	}
+	return result;
+}
+
+console.log(diameterOfBinaryTree(BTree));
+
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>21. Add Binary</title>
+</head>
+<body>
+<script type="text/javascript">
+	
+let a = '11111';
+let b = '11111';
+
+function addTwoBit(m,n) {
+	if(m == '0' && n == '0') {
+		return ['0', '0'];
+	}
+
+	if(m == '0' && n == '1' || m == '1' && n == '0') {
+		return ['1', '0'];
+	}
+
+	return ['0', '1'];
+}
+
+function addBinary(a,b) {
+	let bit_a = null;
+	let bit_b = null;
+	let memory  = 0;
+	let result = '';
+
+	while(a || b) {
+		// cat 1 bit tu a
+		bit_a = a ? a.substring(a.length - 1) : '0';
+		a = a.substring(0, a.length - 1);
+
+		// cat 1 bit tu b
+		bit_b = b ? b.substring(b.length - 1) : '0';
+		b = b.substring(0, b.length - 1);
+
+		let resultSumTwoBit = addTwoBit(bit_a, bit_b);
+		let resultSumTwoBit_1 = addTwoBit(resultSumTwoBit[0], memory);
+		result = resultSumTwoBit_1[0] + result;
+		
+		if(resultSumTwoBit[1] == '1' || resultSumTwoBit_1[1] == '1') {
+			memory = '1';
+		} else {
+			memory = '0';
+		}
+	}
+
+	if(memory == '1') {
+		result = '1' + result;
+	} 
+
+	return result;
+
+}
+
+console.log(addBinary(a,b));
+
+
+</script>
+</body>
+</html>
