@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+
+let mat = [[0,0,0],[0,1,0],[0,0,0]];
+let mat1 = [[0,0,0],[0,1,0],[1,1,1]];
+let mat2 = [[1,1,0,1,1], [1,1,1,1,0],[1,1,1,1,1]];
+
+let count = 1;
+
+function findNearestRow(mat, i, j) {
+	if(mat[i][j]==0) { return 0; }
+
+	let col = mat[0].length;  // i=0 j=1
+	let distanct = 1;
+	let leftIndex;
+	let rightIndex;
+	while(j-distanct >= 0 || j+distanct < col) {
+		leftIndex = j-distanct;
+		rightIndex = j+distanct;
+
+		if(leftIndex >= 0 && mat[i][leftIndex] == 0) {
+			return distanct;
+		}
+
+		if(rightIndex < col && mat[i][rightIndex] == 0) {
+			return distanct;
+		}
+		distanct++;
+	}
+	return null;
+}
+
+
+function findNearest(mat,i,j) {
+	if(mat[i][j] == 0) {
+		return 0;
+	}
+
+	let temp;
+	let row = mat.length;
+	let distanct = 1;
+	let nearest = findNearestRow(mat, i, j);
+
+	// chay len 
+	let top;
+	while(i-distanct >= 0) {
+		top = i-distanct;
+		temp = findNearestRow(mat, top, j);
+		if(temp !== null) {
+			nearest = nearest === null ? temp + distanct :
+								 Math.min(nearest, temp + distanct);
+		}
+		distanct++;
+	}
+
+	// chay xuong
+	let bottom;
+	distanct = 1;
+	while(i + distanct < row) {
+		bottom = i + distanct;
+		temp = findNearestRow(mat, bottom, j);
+		if(temp !== null) {
+			nearest = nearest === null ? temp + distanct : 
+								Math.min(nearest, temp+ distanct);
+		}
+		distanct++;
+	}
+
+	return nearest;
+
+}
+
+var updateMatrix = function(mat) {
+	let row = mat.length;
+	let col = mat[0].length;
+	let resultArray = new Array();
+	for(let i=0; i<mat.length; i++) { resultArray[i] = []; }
+
+	for(let i=0; i<row; i++) {
+		for(let j=0; j<col; j++) {
+			resultArray[i][j] = findNearest(mat,i,j);
+		}
+	}
+
+	return resultArray;
+};
+
+console.log(updateMatrix(mat));
+
+//console.log(findNearestRow(mat2, 0, 1));
+
+</script>
+</body>
+</html>

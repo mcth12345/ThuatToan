@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+<script>
+	
+let nums = [-1,0,1,2,-1,-4];
+let nums1=[0,0,0,0,0,0];
+
+function binarySearch(target, arr, left, right) {
+  while (left <= right) {
+    let mid = Math.floor((left + right) / 2);
+    if (arr[mid] === target) {
+      return mid;
+    } else if (arr[mid] < target) {
+      left = mid + 1;
+    } else {
+      right = mid - 1;
+    }
+  }
+  return null;
+}
+
+var threeSum = function(nums) {
+    let resultArr = [];
+    let length = nums.length;
+
+    let searchResult;
+    let sumTwoEle;
+    nums = nums.sort((a,b) => a-b);
+    for(let i=0; i<length-2; i++) {
+    	if(nums[i] > 0) { break; }
+    	if(i>0 && nums[i] == nums[i-1]) { continue; }
+    	for(let j=i+1; j<length-1; j++) {
+    		if(j > i+1 && nums[j] == nums[j-1]) { continue; }
+    		sumTwoEle =nums[i] + nums[j];
+    		searchResult = binarySearch(-sumTwoEle, nums, j+1, length - 1);
+    		if(searchResult != null) {
+    			resultArr.push([nums[i], nums[j], -sumTwoEle]);
+    		}
+    	}
+    }
+
+    return resultArr;
+};
+
+console.log(threeSum(nums1));
+
+</script>
+</body>
+</html>
