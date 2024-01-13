@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+	
+let tokens = ["2","1","+","3","*"];
+
+var evalRPN = function(tokens) {
+	let num1, num2=tokens[0], operate, i=2;
+	while(tokens.length > 1) {
+		operate = tokens[i];
+		if(operate == '+' || operate=='-' || operate=='*' || operate=='/') {
+			num1 = parseInt(tokens[i-2]);
+			num2 = parseInt(tokens[i-1]);
+			switch(operate) {
+				case '+':
+					num2 = num1 + num2;
+					break;
+				case '-':
+					num2 = num1 - num2;
+					break;
+				case '*':
+					num2 = num1 * num2;
+					break;
+				default:
+					num2 = num1 / num2;
+					num2 = num2 > 0 ? Math.floor(num2) : Math.ceil(num2);
+			}
+			tokens.splice(i-2, 3, num2 + '');
+			i = i-2;
+		}
+		i++;
+	}
+	return num2;
+}
+
+console.log(evalRPN(tokens));
+
+</script>
+</body>
+</html>

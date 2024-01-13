@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+	
+let numCourses = 2;
+let prerequisites = [[1,0]];
+
+function finishCourse(course, prerequisites, store) {
+	let lastCourse = course[course.length - 1];
+
+	if(store[lastCourse] !== undefined) return store[lastCourse];
+
+	let allCourse = prerequisites.filter(item => item[0] === lastCourse);
+
+	let result = true;
+	for(let item of allCourse) {
+		if(course.includes(item[1])) {
+			result = false;
+			break;
+		}
+		result = result && 
+			finishCourse([...course, item[1]], prerequisites, store);
+	}
+
+	store[lastCourse] = result;
+	return result;
+}
+
+var canFinish = function(numCourses, prerequisites) {
+    let result = true;
+    let store = new Array(numCourses);
+    for(let item of prerequisites) {
+    	result = result && finishCourse(item, prerequisites, store);
+    }
+    return result;
+};
+
+console.log(canFinish(numCourses, prerequisites));
+
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+	
+let node = { val: 1, neighbors:[] };
+let node2 = { val: 2, neighbors:[] };
+let node3 = { val: 3, neighbors:[] };
+let node4 = { val: 4, neighbors:[] };
+
+// neighbors
+node.neighbors.push(node2);
+node.neighbors.push(node4);
+
+node2.neighbors.push(node);
+node2.neighbors.push(node3);
+
+node3.neighbors.push(node2);
+node3.neighbors.push(node4);
+
+node4.neighbors.push(node3);
+node4.neighbors.push(node);
+
+function clone(node, store={}) {
+	let newNode = {
+		val: node.val,
+		neighbors: []
+	};
+
+	store[node.val] = newNode;
+	let tempNode;
+	node.neighbors.forEach(item => {
+		tempNode = store[item.val];
+		if(!tempNode) tempNode = clone(item, store);
+		newNode.neighbors.push(tempNode);
+	});
+	return newNode;
+}
+
+var cloneGraph = function(node) {
+	if(!node) return null;
+	if(node.neighbors.length === 0) {
+		return {
+			val: 1,
+			neighbors: []
+		}
+	}
+    return clone(node);
+};
+
+console.log(cloneGraph(node));
+
+</script>
+</body>
+</html>
