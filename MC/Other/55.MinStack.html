@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+
+var MinStack = function() {
+    this.store = [];
+    this.storeMin = [];
+};
+
+/** 
+ * @param {number} val
+ * @return {void}
+ */
+MinStack.prototype.push = function(val) {
+    this.store.push(val);
+    if(this.storeMin.length == 0) this.storeMin.push(val);
+    else {
+    	let minCurrent = this.storeMin[this.storeMin.length-1];
+    	if(val <= minCurrent) this.storeMin.push(val);
+    }
+};
+
+/**
+ * @return {void}
+ */
+MinStack.prototype.pop = function() {
+    let currentItem = this.store[this.store.length-1];
+    let minCurrent = this.storeMin[this.storeMin.length-1];
+
+    this.store.pop();
+    if(currentItem === minCurrent) {
+    	this.storeMin.pop();
+    }
+};
+
+/**
+ * @return {number}
+ */
+MinStack.prototype.top = function() {
+    return this.store[this.store.length-1];
+};
+
+/**
+ * @return {number}
+ */
+MinStack.prototype.getMin = function() {
+    if(this.storeMin.length === 0) return undefined;
+    return this.storeMin[this.storeMin.length-1];
+};
+
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+	
+let nums = [1,2,3,4];
+let nums1 = [-1,1,0,-3,3];
+
+var productExceptSelf = function(nums) {
+    let countZero = 0, tich = 1;
+    for(let item of nums) {
+    	if(item === 0) countZero++;
+    	else tich*=item;
+    }
+
+    let length = nums.length;
+    for(let i=0; i<length; i++) {
+    	if(countZero >= 2) {
+    		nums[i] = 0;
+    		continue;
+    	}
+
+    	if(countZero == 1) {
+    		nums[i] = nums[i] !== 0 ? 0 : tich;
+    		continue;
+    	}
+
+    	nums[i] = tich / nums[i];
+    }
+
+    return nums;
+
+};
+
+console.log(productExceptSelf(nums1));
+
+
+</script>
+</body>
+</html>
