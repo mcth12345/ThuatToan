@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+	
+let coins = [1,2,5], amount = 11;
+
+var coinChange = function(coins, amount) {
+    let arr = new Array();
+    arr[0] = 0;
+
+    let arrTemp, moneyTemp;
+    for(let i=1; i<= amount; i++) {
+    	arrTemp = [];
+    	moneyTemp = i;
+
+    	for(let j=0; j<coins.length; j++) {
+    		if(moneyTemp - coins[j] >= 0) 
+    			arrTemp.push(1 + arr[moneyTemp - coins[j]]);
+    	}
+
+    	arrTemp = arrTemp.sort((a,b) => a-b);
+    	arr[i] = arrTemp.length === 0 ? Infinity : arrTemp[0];
+    }
+   
+    return arr[amount] === Infinity ? -1 : arr[amount];
+};
+
+console.log(coinChange(coins, amount));
+
+</script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+	
+
+var Trie = function() {
+    //let nums = 'z'.charCodeAt() - 'A'.charCodeAt() + 1;
+    this.hasValue = false;
+    this.children = new Array();
+};
+
+/** 
+ * @param {string} word
+ * @return {void}
+ */
+Trie.prototype.insert = function(word) {
+	let index;
+	let temp = this;
+	for(let c of word) {
+		index = c.charCodeAt() - 65;
+		if(!temp.children[index])
+			temp.children[index] = new Trie();
+		temp = temp.children[index];
+	}
+	temp.hasValue = true;
+};
+
+/** 
+ * @param {string} word
+ * @return {boolean}
+ */
+Trie.prototype.search = function(word) {
+    let temp = this;
+    let index;
+    for(let c of word) {
+    	index = c.charCodeAt() - 65;
+    	if(!temp.children[index]) return false;
+    	temp = temp.children[index];
+    }
+    return temp.hasValue;
+};
+
+/** 
+ * @param {string} prefix
+ * @return {boolean}
+ */
+Trie.prototype.startsWith = function(prefix) {
+    let temp = this;
+    let index;
+    for(let c of prefix) {
+    	index = c.charCodeAt() - 65;
+    	if(!temp.children[index]) return false;
+    	temp = temp.children[index];
+    }
+    return true;
+
+};
+
+/** 
+ * Your Trie object will be instantiated and called as such:
+ * var obj = new Trie()
+ * obj.insert(word)
+ * var param_2 = obj.search(word)
+ * var param_3 = obj.startsWith(prefix)
+ */
+
+ let trie = new Trie();
+ trie.insert('apple');
+ console.log(trie.search('apple'));
+ console.log(trie.search('app'));
+ console.log(trie.startsWith('app'));
+console.log(trie)
+
+ console.log(trie);
+
+</script>
+</body>
+</html>

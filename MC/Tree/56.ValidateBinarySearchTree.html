@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+	
+var isValidBST = function(root) {
+    let left = root.left;
+    let right = root.right;
+    let val = root.val;
+    if(!left && !right) return [val, val];
+
+    let result = [];
+    let leftResult = null;
+    if(left) {
+    	leftResult = isValidBST(left);
+    	if(!leftResult || leftResult[1] >= val) return false;
+    }
+
+    let rightResult = null;
+    if(right) {
+    	rightResult = isValidBST(right);
+    	if(!rightResult || rightResult[0] <= val) return false;
+    }
+    
+    return [
+    	leftResult ? leftResult[0] : val,
+    	rightResult ? rightResult[1] : val
+    ];
+};
+
+</script>
+</body>
+</html>
