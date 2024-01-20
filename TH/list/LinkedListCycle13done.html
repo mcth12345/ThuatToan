@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+/*class ListNode {
+    constructor(val) {
+        this.val = val;
+        this.next = null;
+    }
+}
+
+const head = new ListNode(3);
+
+head.next = new ListNode(2);
+head.next.next = new ListNode(0);
+head.next.next.next = new ListNode(-4);*/
+
+
+//let current = head;
+/*while (current !== null) {
+    console.log(current.val);
+    current = current.next;
+}*/
+
+let list = {
+	value: 3,
+	next: {
+		value: 2
+	}
+};
+
+let list1 = {
+	value: 0,
+	next: {
+		value: -4,
+		next: list.next
+	}
+}
+
+list.next.next =list1
+
+let list2 ={
+    value:3,
+    next:{
+        value:2,
+        next:{
+            value:0,
+            next:{
+                value:-4
+            }
+        }
+    }
+}
+  
+    var hasCycle = function(head){
+
+        if (head === null || head.next === null) {
+            return false;
+        }
+
+        let tortoise = head;
+        let hare = head;
+
+  
+        while (hare !== null && hare.next !== null) {
+            tortoise = tortoise.next;
+            hare = hare.next.next;
+
+        
+            if (tortoise === hare) {
+                return true;
+            }
+        }
+
+    
+        return false;
+    }
+
+    console.log(hasCycle(list2));
+
+    
+    </script>
+</body>
+</html>

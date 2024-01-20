@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        b1. kiem tra ô hien tai, chuyen dau thanh nuoc neu ô đó bằng 1
+        b2. duyet mảng
+        */
+
+        var numIslands = function(grid) {
+            const rows = grid.length;
+            const cols = grid[0].length;
+            let countIslands =0;
+
+            var checkLand = function(row,col){
+                if(row<0|| row>=rows || col<0 || col>=cols || grid[row][col]==='0'){
+                    return;
+                }
+                grid[row][col]='0';
+
+                checkLand(row,col-1);
+                checkLand(row,col+1);
+                checkLand(row-1,col);
+                checkLand(row+1,col);
+            }
+
+            for(let i=0;i<rows;i++){
+                for(let j=0;j<cols;j++){
+                    if(grid[i][j]==='1') {
+                        countIslands++;
+                        checkLand(i,j);
+                    }
+                }
+            }
+
+            return countIslands;
+        };
+
+        const grid = [
+  ["1","1","1","1","0"],
+  ["1","1","0","1","0"],
+  ["1","1","0","0","0"],
+  ["0","0","0","0","0"]
+];
+        const grid1 = [
+        ["1","1","0","0","0"],
+        ["1","1","0","0","0"],
+        ["0","0","1","0","0"],
+        ["0","0","0","1","1"]
+        ]
+
+        console.log(numIslands(grid1))
+
+    </script>
+</body>
+</html>

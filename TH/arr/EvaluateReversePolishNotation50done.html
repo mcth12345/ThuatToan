@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        b1 kiểm tra xem nếu phần tử là số thì push và stack ngược lại thì pop ra 2 giá trị đầu tiên trong stack
+        b2 thực hiên phép tính cho 2 giá trị đầu
+        b3 push kqua bieu thuc đa tính vào stack
+        */
+
+        var evalRPN =function(tokens){
+            let stack =[];
+            const operators = new Set(["+","-","*","/"]);       
+            const lengthTokens =tokens.length;
+
+            for(let i=0; i<lengthTokens;i++){
+                const token =tokens[i];
+                if(!operators.has(token)){   ////isNaN(token)
+                    
+                    stack.push(parseFloat(token));
+
+                }else{
+                    const temp1 = stack.pop();
+                    const temp2 = stack.pop();
+
+                    if(token==="*"){
+                        stack.push(temp2*temp1);
+                    }else if(token==="/"){
+                        let resultt2t1 = temp2/temp1;
+                        if(resultt2t1>0) resultt2t1= Math.floor(resultt2t1);
+                        else resultt2t1= Math.ceil(resultt2t1);
+                        //stack.push(temp2/temp1);
+                        stack.push(resultt2t1);
+                        //console.log((temp2/temp1));
+                        //console.log(stack.push((temp2/temp1)));
+                        //console.log(7/2);
+                    }else if(token==="+"){
+                        stack.push(temp2+temp1);
+                    }else stack.push(temp2-temp1);
+                }
+            }
+            return stack[0];
+            /*const result = Math.floor(stack[0]);
+            return result;*/
+        }
+
+        const tokens=["2","1","+","3","*"];
+        const tokens1= ["4","13","5","/","+"];
+        const tokens2 = ["10","6","9","3","+","-11","*","/","*","17","+","5","+"]
+
+
+        console.log(evalRPN(tokens));
+    </script>
+</body>
+</html>
