@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        b1: duyet for lay cam thoi
+        b2: lan truyen va +1
+        b3: duyet mang moi tao va lan truyen
+
+        */
+
+        var orangesRotting = function(grid) {
+            let rottenOrange=[];
+            const rows = grid.length;
+            const cols = grid[0].length;
+            let jupm =0;
+            let demWhile =0;
+            let countFreshOrange=0;
+            
+            for(let i=0; i<rows ;i++){
+                for(let j=0;j<cols;j++){
+                    if(grid[i][j]==2) rottenOrange.push([i,j]);
+                    else if(grid[i][j]==1){
+                        countFreshOrange++;
+                    }
+                }
+            }
+
+            let tempOrange =[];
+            while(rottenOrange.length!=0){
+                while(rottenOrange.length!=0){
+                    let [i,j]=rottenOrange.shift();
+                    if(j-1>=0 && grid[i][j-1]==1){
+                        grid[i][j-1]=2;
+                        tempOrange.push([i,j-1]);
+                        countFreshOrange--;
+                    }
+                    if(j+1<cols && grid[i][j+1]==1){
+                        grid[i][j+1]=2;
+                        tempOrange.push([i,j+1]);
+                        countFreshOrange--;
+                    }
+                    if(i-1>=0 && grid[i-1][j]==1){
+                        grid[i-1][j]=2;
+                        tempOrange.push([i-1,j]);
+                        countFreshOrange--;
+                    }
+                    if(i+1<rows && grid[i+1][j]==1){
+                        grid[i+1][j]=2;
+                        tempOrange.push([i+1,j]);
+                        countFreshOrange--;
+                    }
+                    
+                }
+
+                if(tempOrange.length!=0){
+                    jupm++;
+                    rottenOrange=tempOrange;
+                    tempOrange=[];
+                }
+
+            }
+
+            if(countFreshOrange!=0) return -1;
+            else return jupm;
+   
+        };
+        
+        
+
+        const grid = [[2,1,1],  
+                      [1,1,0],
+                      [0,1,1]]
+        
+        grid1 = [[2,1,1],
+                [0,1,1],
+                [1,0,1]]
+
+        console.log(orangesRotting(grid1));
+        
+        
+
+    </script>
+</body>
+</html>
