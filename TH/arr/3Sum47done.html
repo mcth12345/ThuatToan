@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        /*
+        b1: sắp xếp mảng
+        b2: duyệt mảng (bỏ qua trường hợp trùng lập) 
+            duyệt từ i+1 và length-1
+        b3: kiểm tra tổng 
+            if(tổng==0) thì thêm vào mảng kqua
+        b4: loại phần tử trùng lập
+
+        */
+
+        function threeSum(nums) {
+            nums.sort((a, b) => a - b); 
+            const result = []; 
+            const numsLength = nums.length;
+
+            for (let i = 0; i < numsLength - 2; i++) {
+                if (i > 0 && nums[i] === nums[i - 1]) {
+                    continue; 
+                }
+
+                let left = i + 1; 
+                let right = numsLength - 1; 
+
+                while (left < right) {
+                    const sum = nums[i] + nums[left] + nums[right];
+
+                    if (sum === 0) {
+                        result.push([nums[i], nums[left], nums[right]]);
+
+                        
+                        while (left < right && nums[left] === nums[left + 1]) { //bỏ qua phần tử trùng  lập
+                            left++;
+                        }
+                        while (left < right && nums[right] === nums[right - 1]) {
+                            right--;
+                        }
+
+                        left++;
+                        right--;
+                    } else if (sum < 0) {
+                        left++;
+                    } else {
+                        right--;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+                                        
+        const nums = [-1,0,1,2,-1,-4];
+        const nums1 =[0,1,1];
+        
+        console.log(threeSum(nums));
+
+        
+
+    </script>
+</body>
+</html>
