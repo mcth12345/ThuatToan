@@ -8,21 +8,15 @@
 <body>
     <script>
 
-        /*
-        b1: duyet chuoi: for(<length) ->lấy dc ký tự hiện tại =s[i]
-        b2: kiểm tra ký tự hiện tại if(ký tự chưa xuất hiện || đã xuất hiện nhưng không nằm trong của số trượt)
-        -> cập nhật index= vị trí hiện tại +1; else ->unfefine
-        b3:tính độ dài dl = i - index +1, max()
-        */
-
-
+        /*//cách 1
         function lengthOfLongestSubstring(s) {
             const length = s.length;
             let maxLength = 0;
             let index = 0;
             const charIndexMap = {};//lưu vị trí xuất hiện của ký tự gần nhát
-
+            
             for (let i = 0; i < length; i++) {
+                
                 const currentChar = s[i];
 
                 if (charIndexMap[currentChar] !== undefined && charIndexMap[currentChar] >= index) {
@@ -35,15 +29,62 @@
             }
 
             return maxLength;
+            
+        }
+        */
+
+        /*
+        1. duyệt for
+        2. push ký tự vào chuỗi temp và kiểm tra nếu như trùng thì trả vê true
+        3. tính độ dài chuỗi hiện tại và gán nó lằm max
+        */
+        function checkHasOverlap (string){
+            const stringTemp ={};
+            for(let char of string){
+                if(stringTemp[char]) return true;
+                stringTemp[char]=true;
+            }
+            return false;
         }
 
+        function cutOverlap (string, sCut){
+            stringLength = string.length;
+            for(let i=0; i<stringLength;i++){
+                if(string[i]==sCut){
+                   return string.slice(i+1);
+                }
+            }
+        }
+
+        function lengthOfLongestSubstring(s){
+            let sTemp =[];
+            const lengthS = s.length;
+            let max=1;
+            if(lengthS==0) return 0;
+            if(lengthS==1) return 1;
+
+            for(let i=0; i<lengthS; i++){
+                sTemp.push(s[i]); 
+                if(checkHasOverlap(sTemp)){
+                    max=Math.max(max,sTemp.length-1);
+                    
+                    sTemp=cutOverlap(sTemp,s[i]);
+                }
+            }
+            max = Math.max(max, sTemp.length);// kiểm tra chuoix cuois cùng
+            return max;
+        }
+
+        
         const s = "abcabcbb";
         const s1= "abcde";
         const s3 ="pwwkew";
         const s4 ="";
-        const s5 ="bbbb";
+        const s5 ="bcd";
+        const s6 ="au";
         
-        console.log(lengthOfLongestSubstring(s3));
+        //console.log(checkHasOverlap(s));
+        console.log(lengthOfLongestSubstring(s6));
 
  
 
